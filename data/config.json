@@ -2,8 +2,8 @@
   "baseURL": "https://demoqa.com",
   "credentials": {
     "valid": {
-      "username": "testUser",
-      "password": "Password1"
+      "username": "mohsinmanzoor",
+      "password": "Abc@123456"
     },
     "invalid": {
       "username": "wrongUser",
@@ -15,5 +15,33 @@
     "element": 10000,
     "navigation": 15000
   },
-  "screenshotDir": "reports/screenshots"
+  "screenshotDir": "reports/screenshots",
+  "testData": {
+    "textBox": {
+      "fullName": "Jane Doe",
+      "email": "jane@example.com",
+      "currentAddress": "123 Test Lane",
+      "permanentAddress": "456 Permanent Ave"
+    },
+    "practiceForm": {
+      "firstName": "Jane",
+      "lastName": "Doe",
+      "email": "jane@example.com",
+      "mobile": "9876543210",
+      "dateOfBirth": "15 Jan 1995",
+      "subject": "Maths",
+      "address": "123 Test Lane",
+      "state": "NCR",
+      "city": "Delhi"
+    },
+    "webTable": {
+      "firstName": "Test",
+      "lastName": "User",
+      "email": "test@table.com",
+      "age": "28",
+      "salary": "50000",
+      "department": "QA"
+    },
+    "bookSearch": "Git"
+  }
 }
