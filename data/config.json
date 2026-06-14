@@ -1,0 +1,19 @@
+{
+  "baseURL": "https://demoqa.com",
+  "credentials": {
+    "valid": {
+      "username": "testUser",
+      "password": "Password1"
+    },
+    "invalid": {
+      "username": "wrongUser",
+      "password": "wrongPassword"
+    }
+  },
+  "timeouts": {
+    "default": 30000,
+    "element": 10000,
+    "navigation": 15000
+  },
+  "screenshotDir": "reports/screenshots"
+}
