@@ -15,6 +15,49 @@ An end-to-end test automation framework for [demoqa.com](https://demoqa.com) bui
 
 ---
 
+## Architecture
+
+```
+┌──────────────────────────────────────────────────────────────────┐
+│                      Test Suites  (tests/)                       │
+│   login   elements   forms   alerts   widgets   bookstore        │
+└────────────────────────────┬─────────────────────────────────────┘
+                             │ instantiate & call
+┌────────────────────────────▼─────────────────────────────────────┐
+│                    Page Objects  (pages/)                         │
+│   LoginPage  ElementsPage  FormsPage  AlertsPage  WidgetsPage    │
+│   BookStorePage   ── all extend ──▶  BasePage                    │
+│   BasePage exposes: navigate()  waitForElement()                  │
+│                     takeScreenshot()  handleAlert()               │
+└────────────────────────────┬─────────────────────────────────────┘
+                             │ use
+┌────────────────────────────▼─────────────────────────────────────┐
+│                     Utilities  (utils/)                           │
+│   configReader.js   logger.js   screenshotUtil.js                │
+│   dataParser.js     waitUtils.js                                  │
+└────────────────────────────┬─────────────────────────────────────┘
+                             │ read
+┌────────────────────────────▼─────────────────────────────────────┐
+│                    Test Data  (data/)                             │
+│   config.json  — baseURL, credentials, timeouts, testData        │
+└──────────────────────────────────────────────────────────────────┘
+
+Hook & Reporter Flow
+────────────────────
+hooks/globalSetup.js ──▶ runs once before all suites
+                         (validates config, creates report dirs)
+
+Per-suite  beforeAll  ──▶ logs browser type & suite start
+           afterAll   ──▶ logs suite completion
+
+Per-test   beforeEach ──▶ navigates to target page
+           afterEach  ──▶ captures screenshot on failure, logs result
+
+Playwright ──▶ allure-results/ ──▶ allure generate ──▶ reports/allure-report/
+```
+
+---
+
 ## Project Structure
 
 ```

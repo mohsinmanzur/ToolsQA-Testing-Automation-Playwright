@@ -8,6 +8,14 @@ let loginPage;
 
 test.describe('Login Page', () => {
 
+  test.beforeAll(async ({ browser }) => {
+    logger.info(`=== Suite: Login Page — browser: ${browser.browserType().name()} ===`);
+  });
+
+  test.afterAll(async () => {
+    logger.info('=== Suite: Login Page complete ===');
+  });
+
   test.beforeEach(async ({ page }) => {
     loginPage = new LoginPage(page);
     await loginPage.navigateToLogin();

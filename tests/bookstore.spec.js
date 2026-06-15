@@ -8,6 +8,14 @@ let bookStorePage;
 
 test.describe('Book Store', () => {
 
+  test.beforeAll(async ({ browser }) => {
+    logger.info(`=== Suite: Book Store — browser: ${browser.browserType().name()} ===`);
+  });
+
+  test.afterAll(async () => {
+    logger.info('=== Suite: Book Store complete ===');
+  });
+
   test.beforeEach(async ({ page }) => {
     bookStorePage = new BookStorePage(page);
     await bookStorePage.navigateToBookStore();
@@ -23,10 +31,8 @@ test.describe('Book Store', () => {
   });
 
   test('Book store page loads and displays books', async ({ page }) => {
-    const rows = await page.$$eval('.rt-tr-group', rows =>
-      rows.filter(r => r.textContent.trim() !== '').length
-    );
-    expect(rows).toBeGreaterThan(0);
+    const titles = await bookStorePage.getVisibleBookTitles();
+    expect(titles.length).toBeGreaterThan(0);
   });
 
   test('User can search for a book by title', async ({ page }) => {

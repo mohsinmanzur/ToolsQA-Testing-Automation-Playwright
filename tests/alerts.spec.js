@@ -7,6 +7,14 @@ let alertsPage;
 
 test.describe('Alerts, Frame & Windows', () => {
 
+  test.beforeAll(async ({ browser }) => {
+    logger.info(`=== Suite: Alerts, Frame & Windows — browser: ${browser.browserType().name()} ===`);
+  });
+
+  test.afterAll(async () => {
+    logger.info('=== Suite: Alerts, Frame & Windows complete ===');
+  });
+
   test.afterEach(async ({ page }, testInfo) => {
     if (testInfo.status === 'failed') {
       logger.error(`Test failed: ${testInfo.title}`);

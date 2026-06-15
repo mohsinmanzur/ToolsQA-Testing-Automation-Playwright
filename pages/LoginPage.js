@@ -7,6 +7,7 @@ class LoginPage extends BasePage {
     USERNAME_INPUT:   '#userName',
     PASSWORD_INPUT:   '#password',
     LOGIN_BUTTON:     '#login',
+    LOGOUT_BUTTON:    '#submit',
     ERROR_MESSAGE:    '.mb-1',
     PROFILE_USERNAME: '#userName-value'
   };
@@ -52,6 +53,14 @@ class LoginPage extends BasePage {
   async isOnProfilePage() {
     await waitUtils.waitForURL(this.page, /\/profile/);
     return this.page.url().includes('/profile');
+  }
+
+  async logout() {
+    await this.navigate('/profile');
+    await this.waitForElement(LoginPage.SELECTORS.LOGOUT_BUTTON);
+    await this.page.click(LoginPage.SELECTORS.LOGOUT_BUTTON);
+    await waitUtils.waitForURL(this.page, /\/login/);
+    logger.info('Logged out successfully');
   }
 }
 

@@ -40,7 +40,8 @@
       "email": "test@table.com",
       "age": "28",
       "salary": "50000",
-      "department": "QA"
+      "department": "QA",
+      "searchDefault": "Cierra"
     },
     "bookSearch": "Git"
   }

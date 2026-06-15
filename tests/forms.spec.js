@@ -8,6 +8,14 @@ let formsPage;
 
 test.describe('Practice Form', () => {
 
+  test.beforeAll(async ({ browser }) => {
+    logger.info(`=== Suite: Practice Form — browser: ${browser.browserType().name()} ===`);
+  });
+
+  test.afterAll(async () => {
+    logger.info('=== Suite: Practice Form complete ===');
+  });
+
   test.beforeEach(async ({ page }) => {
     formsPage = new FormsPage(page);
     await formsPage.navigateToPracticeForm();

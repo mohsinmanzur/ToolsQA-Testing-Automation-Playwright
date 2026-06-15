@@ -7,6 +7,14 @@ let widgetsPage;
 
 test.describe('Widgets', () => {
 
+  test.beforeAll(async ({ browser }) => {
+    logger.info(`=== Suite: Widgets — browser: ${browser.browserType().name()} ===`);
+  });
+
+  test.afterAll(async () => {
+    logger.info('=== Suite: Widgets complete ===');
+  });
+
   test.afterEach(async ({ page }, testInfo) => {
     if (testInfo.status === 'failed') {
       logger.error(`Test failed: ${testInfo.title}`);

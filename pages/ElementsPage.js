@@ -35,6 +35,7 @@ class ElementsPage extends BasePage {
     SEARCH_BOX:         '#searchBox',
     DELETE_BTN:         '[title="Delete"]',
     TABLE_ROWS:         '.rt-tr-group',
+    TABLE_CELLS:        '.rt-td',
 
     // Buttons
     DOUBLE_CLICK_BTN:   '#doubleClickBtn',
@@ -136,6 +137,17 @@ class ElementsPage extends BasePage {
 
   async deleteFirstRow() {
     await this.page.click(`${ElementsPage.SELECTORS.DELETE_BTN} >> nth=0`);
+  }
+
+  async getTableCellCount() {
+    const cells = await this.page.$$(ElementsPage.SELECTORS.TABLE_CELLS);
+    return cells.length;
+  }
+
+  async getVisibleRowCount() {
+    return await this.page.$$eval(ElementsPage.SELECTORS.TABLE_ROWS,
+      rows => rows.filter(r => r.textContent.trim() !== '').length
+    );
   }
 
   async navigateToButtons() {

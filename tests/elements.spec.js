@@ -8,6 +8,14 @@ let elementsPage;
 
 test.describe('Elements', () => {
 
+  test.beforeAll(async ({ browser }) => {
+    logger.info(`=== Suite: Elements — browser: ${browser.browserType().name()} ===`);
+  });
+
+  test.afterAll(async () => {
+    logger.info('=== Suite: Elements complete ===');
+  });
+
   test.afterEach(async ({ page }, testInfo) => {
     if (testInfo.status === 'failed') {
       logger.error(`Test failed: ${testInfo.title}`);
@@ -87,15 +95,13 @@ test.describe('Elements', () => {
     test('User can add a new row to the web table', async ({ page }) => {
       await elementsPage.addTableRow(config.testData.webTable);
       await elementsPage.searchTable(config.testData.webTable.firstName);
-      const titles = await page.$$('.rt-td');
-      expect(titles.length).toBeGreaterThan(0);
+      const cellCount = await elementsPage.getTableCellCount();
+      expect(cellCount).toBeGreaterThan(0);
     });
 
     test('User can search and filter web table rows', async ({ page }) => {
-      await elementsPage.searchTable('Cierra');
-      const rows = await page.$$eval('.rt-tr-group', rows =>
-        rows.filter(r => r.textContent.trim() !== '').length
-      );
+      await elementsPage.searchTable(config.testData.webTable.searchDefault);
+      const rows = await elementsPage.getVisibleRowCount();
       expect(rows).toBeGreaterThan(0);
     });
 
